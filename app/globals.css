@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -41,6 +44,37 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Custom Fonts */
+  --font-poppins: 'Poppins', sans-serif;
+  --font-sora: 'Sora', sans-serif;
+
+  /* Custom Colors */
+  /* Dark background colors */
+  --color-background: #1a1c22;
+  --color-background-light: #2a2d35;
+  --color-background-dark: #121317;
+
+  /* Light foreground colors */
+  --color-foreground: #e4e7ec;
+  --color-foreground-light: #f1f3f6;
+  --color-foreground-dark: #c9ccd1;
+
+   /* Accent colors */
+  --color-accent-yellow: #fce58b;
+  --color-accent-yellow-hover: #fbe56a;
+
+  --color-accent-green: #a6f1b9;
+  --color-accent-green-hover: #8be9a2;
+
+  --color-accent-purple: #d8c9f4;
+  --color-accent-purple-hover: #c8b3f1;
+
+  --color-accent-blue: #c8e8fc;
+  --color-accent-blue-hover: #b4dffc;
+
+  --color-accent-pink: #f9c8db;
+  --color-accent-pink-hover: #f7b2cc;
 }
 
 :root {
