@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+import { MdOutlineArrowOutward } from "react-icons/md";
 import { PiGitBranchLight } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -18,17 +19,12 @@ export default function Home() {
 			{/* Header */}
 			<header className="flex justify-between items-center py-6 px-4 md:px-12 bg-background">
 				<div className="flex items-center gap-2">
-					<FaBrain className="text-accent-yellow text-xl md:text-2xl" />
-					<span className="font-bold text-lg md:text-xl">
+					<FaBrain className="text-accent-yellow text-2xl" />
+					<span className="font-bold text-xl">
 						Reasoning Assistant
 					</span>
 				</div>
-				<nav className="hidden md:flex gap-8 text-foreground/80 font-medium">
-					<Link href="#">Home</Link>
-					<Link href="#how">About Chain of Thought</Link>
-					<Link href="#works">How It Works</Link>
-				</nav>
-				<div className="flex gap-2">
+				<div className="hidden md:flex gap-2">
 					<Button
 						asChild
 						className="bg-accent-blue hover:bg-accent-blue/90 text-black font-medium px-4 py-2 text-sm md:text-base transition-all duration-300"
@@ -66,7 +62,12 @@ export default function Home() {
 							asChild
 							className="p-5 bg-accent-green hover:bg-accent-green/90 text-black font-semibold transition-all duration-300"
 						>
-							<Link href="/login">Try Now</Link>
+							<Link href="/login">
+								<div className="flex items-center gap-2">
+									<span>Try Now </span>
+									<MdOutlineArrowOutward className="font-bold" />
+								</div>
+							</Link>
 						</Button>
 						<Button
 							asChild
@@ -149,7 +150,7 @@ export default function Home() {
 
 			{/* See It in Action Section */}
 			<section className="bg-background py-16 px-4 md:px-0 flex justify-center">
-				<div className="bg-background-light rounded-2xl shadow-lg max-w-3xl w-full mx-auto p-10 flex flex-col items-center border border-border/30">
+				<div className="bg-background-light rounded-2xl shadow-lg max-w-3xl w-full mx-auto p-5 md:p-10 flex flex-col items-center border border-border/30">
 					<h2 className="text-2xl md:text-3xl font-bold text-center mb-2 font-sora">
 						See It in Action
 					</h2>
@@ -157,7 +158,7 @@ export default function Home() {
 						Watch how our Chain of Thought model processes complex
 						reasoning tasks in real-time.
 					</p>
-					<div className="w-full bg-black rounded-xl p-8 flex flex-col gap-8 shadow-inner">
+					<div className="w-full bg-black rounded-xl p-5 md:p-8 flex flex-col gap-8 shadow-inner">
 						<div className="flex flex-col gap-3">
 							<div className="flex items-center gap-4">
 								<span className="bg-accent-yellow text-black font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-md">
