@@ -29,13 +29,13 @@ export default function Home() {
 						asChild
 						className="bg-accent-blue hover:bg-accent-blue/90 text-black font-medium px-4 py-2 text-sm md:text-base transition-all duration-300"
 					>
-						<Link href="/login">Login</Link>
+						<Link href="/auth/login">Login</Link>
 					</Button>
 					<Button
 						asChild
 						className="bg-accent-yellow hover:bg-accent-yellow/90 text-black font-medium px-4 py-2 text-sm md:text-base transition-all duration-300"
 					>
-						<Link href="/register">Register</Link>
+						<Link href="/auth/register">Register</Link>
 					</Button>
 				</div>
 			</header>
@@ -62,7 +62,7 @@ export default function Home() {
 							asChild
 							className="p-5 bg-accent-green hover:bg-accent-green/90 text-black font-semibold transition-all duration-300"
 						>
-							<Link href="/login">
+							<Link href="/auth/login">
 								<div className="flex items-center gap-2">
 									<span>Try Now </span>
 									<MdOutlineArrowOutward className="font-bold" />
