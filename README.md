@@ -2,6 +2,8 @@
 
 A modern AI-powered chat application that leverages **Chain of Thought (CoT) reasoning** to provide more thoughtful and structured responses to complex questions.
 
+![Reasoning Assistant](/public/showcase.png)
+
 ## What is Chain of Thought in AI?
 
 **Chain of Thought (CoT)** is an AI reasoning technique that enables language models to break down complex problems into step-by-step logical sequences. Instead of directly jumping to conclusions, the AI model:
