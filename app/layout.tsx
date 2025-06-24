@@ -1,9 +1,9 @@
-import "./globals.css";
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
 	title: "Reasoning Assistant",
-	description: "Reasoning Assistant for the future of AI",
+	description: "Reasoning Assistant - powered by ChainOfThought",
 };
 
 export default function RootLayout({
@@ -12,8 +12,8 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={`antialiased font-poppins`}>{children}</body>
+		<html lang="en" className="dark">
+			<body>{children}</body>
 		</html>
 	);
 }
