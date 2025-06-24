@@ -39,9 +39,9 @@ export function ChatInput({
 	}, [input]);
 
 	return (
-		<div className="fixed bottom-0 left-0 right-0 z-50 bg-background">
+		<div className="fixed bottom-0 left-0 right-0 z-50 bg-background max-w-3xl mx-auto">
 			<div className="p-3">
-				<div className="max-w-3xl mx-auto">
+				<div>
 					{/* Outer container with gradient background */}
 					<div className="p-2 rounded-lg relative overflow-hidden border border-border/30 shadow-lg bg-card/10 backdrop-blur-md group">
 						{/* Gradient background elements */}

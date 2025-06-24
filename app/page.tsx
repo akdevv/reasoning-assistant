@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChatInput } from "@/components/chat-input";
 import { ChatBubble } from "@/components/chat-bubble";
-import { Bot } from "lucide-react";
+import { WelcomeScreen } from "@/components/welcome-screen";
 
 interface Message {
 	id: string;
@@ -20,14 +20,48 @@ export default function Home() {
 	const [input, setInput] = useState<string>("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [messages, setMessages] = useState<Message[]>([]);
-	const [thinkingMode, setThinkingMode] = useState(false);
-	const [selectedModel, setSelectedModel] = useState("llama-70b");
+	const [thinkingMode, setThinkingMode] = useState(true);
+	const [selectedModel, setSelectedModel] = useState("deepseek-r1");
+	const messagesEndRef = useRef<HTMLDivElement>(null);
+	const scrollContainerRef = useRef<HTMLDivElement>(null);
+	const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	const generateUniqueId = () => {
 		messageIdCounter += 1;
 		return `msg_${Date.now()}_${messageIdCounter}_${Math.random()
 			.toString(36)
 			.substr(2, 9)}`;
+	};
+
+	const scrollToBottom = (smooth = true) => {
+		if (scrollTimeoutRef.current) {
+			clearTimeout(scrollTimeoutRef.current);
+		}
+
+		scrollTimeoutRef.current = setTimeout(
+			() => {
+				// Find the scroll viewport within the ScrollArea
+				const scrollContainer = scrollContainerRef.current;
+				if (scrollContainer) {
+					const viewport = scrollContainer.querySelector(
+						'[data-slot="scroll-area-viewport"]'
+					) as HTMLElement;
+					if (viewport) {
+						requestAnimationFrame(() => {
+							viewport.scrollTo({
+								top: viewport.scrollHeight,
+								behavior: smooth ? "smooth" : "auto",
+							});
+						});
+					}
+				}
+			},
+			isLoading ? 20 : 50
+		); // Very fast during streaming, moderate when idle
+	};
+
+	const handleExampleSelect = (question: string) => {
+		setInput(question);
 	};
 
 	const sendMessage = async (e: React.FormEvent) => {
@@ -127,25 +161,29 @@ export default function Home() {
 		console.log("messages =>", messages);
 	}, [messages]);
 
+	useEffect(() => {
+		scrollToBottom(!isLoading); // No smooth scrolling during streaming for better performance
+	}, [messages, isLoading]);
+
+	// Cleanup timeout on unmount
+	useEffect(() => {
+		return () => {
+			if (scrollTimeoutRef.current) {
+				clearTimeout(scrollTimeoutRef.current);
+			}
+		};
+	}, []);
+
 	return (
 		<div className="flex flex-col h-screen">
 			{/* Messages */}
 			<div className="overflow-hidden">
-				<ScrollArea className="h-full">
+				<ScrollArea className="h-full" ref={scrollContainerRef}>
 					<div className="max-w-3xl mx-auto px-2 py-6 pb-48">
 						{messages.length === 0 ? (
-							<div className="flex flex-col items-center justify-center h-full min-h-[60vh] text-center">
-								<div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-									<Bot className="w-8 h-8 text-primary" />
-								</div>
-								<h2 className="text-2xl font-semibold text-foreground mb-2">
-									Welcome to AI Assistant
-								</h2>
-								<p className="text-muted-foreground max-w-md">
-									Ask me anything! I can help with coding,
-									math, science, or just have a conversation.
-								</p>
-							</div>
+							<WelcomeScreen
+								onSelectExample={handleExampleSelect}
+							/>
 						) : (
 							<div className="space-y-6">
 								{messages.map((message, index) => (
@@ -159,6 +197,7 @@ export default function Home() {
 										messageIndex={index}
 									/>
 								))}
+								<div ref={messagesEndRef} />
 							</div>
 						)}
 					</div>

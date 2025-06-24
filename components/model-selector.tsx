@@ -22,7 +22,7 @@ export default function ModelSelector({
 	onValueChange,
 }: ModelSelectorProps) {
 	const [selectedModel, setSelectedModel] = useState<Model>(
-		value || "llama-70b"
+		value || "deepseek-r1"
 	);
 
 	const handleValueChange = (newValue: Model) => {

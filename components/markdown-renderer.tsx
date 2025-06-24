@@ -120,42 +120,46 @@ function CodeBlock({
 	};
 
 	return (
-		<div className="relative group my-6 rounded-xl overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm shadow-lg">
+		<div className="relative group my-4 sm:my-6 rounded-xl overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm shadow-lg max-w-full">
 			{/* Header with language and copy button */}
-			<div className="flex items-center justify-between bg-muted/80 backdrop-blur-sm text-muted-foreground px-4 py-3 border-b border-border/30">
-				<div className="flex items-center gap-2">
-					<span className="text-sm font-medium ml-2 text-foreground/90">
+			<div className="flex items-center justify-between bg-muted/80 backdrop-blur-sm text-muted-foreground px-3 py-2 sm:px-4 sm:py-3 border-b border-border/30">
+				<div className="flex items-center gap-2 min-w-0 flex-1">
+					<span className="text-xs sm:text-sm font-medium ml-1 sm:ml-2 text-foreground/90 truncate">
 						{displayName || "Code"}
 					</span>
 				</div>
 				<button
 					onClick={copyToClipboard}
-					className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-background/80 hover:bg-background border border-border/50 rounded-lg transition-all duration-200 hover:shadow-md font-medium text-foreground/80 hover:text-foreground"
+					className="flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 text-xs bg-background/80 hover:bg-background border border-border/50 rounded-lg transition-all duration-200 hover:shadow-md font-medium text-foreground/80 hover:text-foreground flex-shrink-0"
 				>
 					{copied ? (
 						<>
-							<Check className="w-3.5 h-3.5 text-primary" />
-							<span>Copied!</span>
+							<Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" />
+							<span className="hidden sm:inline">Copied!</span>
 						</>
 					) : (
 						<>
-							<Copy className="w-3.5 h-3.5" />
-							<span>Copy</span>
+							<Copy className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+							<span className="hidden sm:inline">Copy</span>
 						</>
 					)}
 				</button>
 			</div>
 
 			{/* Code content */}
-			<div className="relative">
+			<div className="relative overflow-hidden">
 				<pre
 					{...props}
-					className="bg-card/90 text-foreground p-5 overflow-x-auto leading-relaxed"
+					className="bg-card/90 text-foreground p-3 sm:p-4 lg:p-5 overflow-x-auto leading-relaxed max-w-full"
 					style={{
-						fontSize: "14px",
-						lineHeight: "1.6",
+						fontSize: "12px",
+						lineHeight: "1.5",
 						fontFamily:
 							'var(--font-mono), Monaco, Menlo, "Ubuntu Mono", Consolas, monospace',
+						...(window.innerWidth >= 640 && {
+							fontSize: "14px",
+							lineHeight: "1.6",
+						}),
 					}}
 				>
 					{children}
@@ -174,7 +178,7 @@ export function MarkdownRenderer({
 }: MarkdownRendererProps) {
 	return (
 		<div
-			className={`prose prose-sm dark:prose-invert max-w-none ${className}`}
+			className={`prose prose-sm dark:prose-invert max-w-none overflow-hidden ${className}`}
 		>
 			<ReactMarkdown
 				remarkPlugins={[remarkGfm, remarkMath]}
@@ -224,7 +228,7 @@ export function MarkdownRenderer({
 							return (
 								<code
 									{...props}
-									className="bg-muted/60 text-foreground px-2 py-0.5 rounded-md text-sm font-mono border border-border/30 font-medium"
+									className="bg-muted/60 text-foreground px-1.5 py-0.5 sm:px-2 rounded-md text-xs sm:text-sm font-mono border border-border/30 font-medium break-all"
 								>
 									{children}
 								</code>
@@ -233,7 +237,7 @@ export function MarkdownRenderer({
 						return (
 							<code
 								{...props}
-								className="text-foreground font-mono"
+								className="text-foreground font-mono break-all"
 							>
 								{children}
 							</code>
@@ -245,10 +249,10 @@ export function MarkdownRenderer({
 						children,
 						...props
 					}: ComponentPropsWithoutRef<"table">) => (
-						<div className="overflow-x-auto my-6 rounded-lg border border-border/50 bg-card/50">
+						<div className="overflow-x-auto my-4 sm:my-6 rounded-lg border border-border/50 bg-card/50 max-w-full">
 							<table
 								{...props}
-								className="min-w-full border-collapse"
+								className="min-w-full border-collapse text-sm"
 							>
 								{children}
 							</table>
@@ -261,7 +265,7 @@ export function MarkdownRenderer({
 					}: ComponentPropsWithoutRef<"th">) => (
 						<th
 							{...props}
-							className="border-b border-border/50 bg-muted/50 px-4 py-3 text-left font-semibold text-foreground"
+							className="border-b border-border/50 bg-muted/50 px-2 py-2 sm:px-4 sm:py-3 text-left font-semibold text-foreground text-xs sm:text-sm"
 						>
 							{children}
 						</th>
@@ -273,7 +277,7 @@ export function MarkdownRenderer({
 					}: ComponentPropsWithoutRef<"td">) => (
 						<td
 							{...props}
-							className="border-b border-border/30 px-4 py-3 text-muted-foreground"
+							className="border-b border-border/30 px-2 py-2 sm:px-4 sm:py-3 text-muted-foreground text-xs sm:text-sm"
 						>
 							{children}
 						</td>

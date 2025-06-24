@@ -1,6 +1,7 @@
 "use client";
 
-import { Loader2, Brain } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Loader2, Brain, ChevronDown, ChevronUp } from "lucide-react";
 import { MODELS_LABELS } from "@/constants";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 
@@ -25,6 +26,8 @@ export function ChatBubble({
 	isLastMessage,
 	messageIndex,
 }: ChatBubbleProps) {
+	const [isThinkingExpanded, setIsThinkingExpanded] = useState(false);
+
 	const formatContent = (content: string) => {
 		// Handle thinking blocks
 		const thinkingRegex =
@@ -76,7 +79,7 @@ export function ChatBubble({
 			<div
 				className={`group relative ${
 					message.role === "user"
-						? "max-w-[85%] sm:max-w-[80%] lg:max-w-[70%] bg-primary text-primary-foreground shadow-lg"
+						? "max-w-[85%] sm:max-w-[80%] lg:max-w-[70%] bg-primary/10 text-primary-foreground/90 border border-primary/50 shadow-lg"
 						: "max-w-full"
 				} rounded-2xl ${
 					message.role === "user" ? "rounded-tr-md" : "rounded-tl-md"
@@ -111,19 +114,39 @@ export function ChatBubble({
 								(part, partIndex) => (
 									<div key={partIndex}>
 										{part.type === "thinking" ? (
-											<div className="relative bg-muted/50 border border-border/50 rounded-lg p-4 sm:p-5 mb-4">
-												<div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-3">
-													<div className="flex items-center gap-2 bg-muted px-2.5 py-1 rounded-full">
-														<Brain className="w-3.5 h-3.5" />
-														<span>
-															Thinking Process
-														</span>
+											<div className="relative bg-muted/50 border border-border/50 rounded-lg mb-4">
+												<button
+													onClick={() =>
+														setIsThinkingExpanded(
+															!isThinkingExpanded
+														)
+													}
+													className="w-full flex items-center justify-between p-4 sm:p-5 hover:bg-muted/70 transition-colors duration-200 rounded-lg"
+												>
+													<div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+														<div className="flex items-center gap-2 bg-muted px-2.5 py-1 rounded-full">
+															<Brain className="w-3.5 h-3.5" />
+															<span>
+																Thinking Process
+															</span>
+														</div>
 													</div>
-												</div>
-												<MarkdownRenderer
-													content={part.content}
-													className="text-sm sm:text-base text-muted-foreground/90 prose-sm max-w-none"
-												/>
+													{isThinkingExpanded ? (
+														<ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
+													) : (
+														<ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
+													)}
+												</button>
+												{isThinkingExpanded && (
+													<div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
+														<MarkdownRenderer
+															content={
+																part.content
+															}
+															className="text-sm sm:text-base text-muted-foreground/90 prose-sm max-w-none"
+														/>
+													</div>
+												)}
 											</div>
 										) : (
 											<MarkdownRenderer

@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 		}
 
 		const selectedModel =
-			MODELS[model as keyof typeof MODELS] || MODELS["llama-70b"];
+			MODELS[model as keyof typeof MODELS] || MODELS["deepseek-r1"];
 		const systemPrompt = useThinking
 			? SYSTEM_PROMPTS.thinking
 			: SYSTEM_PROMPTS.normal;

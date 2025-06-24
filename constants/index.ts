@@ -1,17 +1,13 @@
 export const MODELS = {
-	"llama-70b": "llama3-70b-8192",
-	"llama-8b": "llama3-8b-8192",
 	"deepseek-r1": "deepseek-r1-distill-llama-70b",
-	"gemma-7b": "gemma-7b-it",
 	"gemma2-9b": "gemma2-9b-it",
+	"qwen3-32b": "qwen/qwen3-32b",
 };
 
 export const MODELS_LABELS = [
-	{ value: "llama-70b", label: "Llama 3 70B" },
-	{ value: "llama-8b", label: "Llama 3 8B" },
 	{ value: "deepseek-r1", label: "Deepseek R1" },
-	{ value: "gemma-7b", label: "Gemma 7B" },
 	{ value: "gemma2-9b", label: "Gemma2 9B" },
+	{ value: "qwen3-32b", label: "Qwen3 32B" },
 ];
 
 export const SYSTEM_PROMPTS = {
