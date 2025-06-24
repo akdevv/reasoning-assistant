@@ -3,7 +3,7 @@ import { SYSTEM_PROMPTS, MODELS } from "@/constants";
 import { NextRequest, NextResponse } from "next/server";
 
 // runtime is set to edge to enable streaming responses on vercel
-// export const runtime = "edge";
+export const runtime = "edge";
 
 const groq = new Groq({
 	apiKey: process.env.GROQ_API_KEY,
