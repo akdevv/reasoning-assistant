@@ -17,10 +17,6 @@ export async function POST(req: NextRequest) {
 			useThinking = false,
 		} = await req.json();
 
-		console.log("message", message);
-		console.log("model", model);
-		console.log("useThinking", useThinking);
-
 		if (!message) {
 			return NextResponse.json(
 				{ error: "Message is required" },

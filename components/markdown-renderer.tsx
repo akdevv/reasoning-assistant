@@ -1,4 +1,3 @@
-// components/markdown-renderer.tsx
 "use client";
 
 import ReactMarkdown from "react-markdown";
@@ -10,7 +9,6 @@ import { ComponentPropsWithoutRef } from "react";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 
-// Import KaTeX CSS
 import "katex/dist/katex.min.css";
 
 interface MarkdownRendererProps {
@@ -101,7 +99,9 @@ function CodeBlock({
 		if (typeof node === "number") return node.toString();
 		if (Array.isArray(node)) return node.map(getTextContent).join("");
 		if (node && typeof node === "object" && "props" in node) {
-			const element = node as any;
+			const element = node as React.ReactElement<{
+				children: React.ReactNode;
+			}>;
 			return getTextContent(element.props?.children);
 		}
 		return "";
@@ -192,7 +192,7 @@ export function MarkdownRenderer({
 						// Check if this is a code block (has a code child with className)
 						const codeChild = Array.isArray(children)
 							? children.find(
-									(child: any) =>
+									(child) =>
 										child?.type === "code" ||
 										(child?.props && child.props.className)
 							  )

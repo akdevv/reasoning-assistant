@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChatInput } from "@/components/chat-input";
 import { ChatBubble } from "@/components/chat-bubble";
@@ -33,32 +33,35 @@ export default function Home() {
 			.substr(2, 9)}`;
 	};
 
-	const scrollToBottom = (smooth = true) => {
-		if (scrollTimeoutRef.current) {
-			clearTimeout(scrollTimeoutRef.current);
-		}
+	const scrollToBottom = useCallback(
+		(smooth = true) => {
+			if (scrollTimeoutRef.current) {
+				clearTimeout(scrollTimeoutRef.current);
+			}
 
-		scrollTimeoutRef.current = setTimeout(
-			() => {
-				// Find the scroll viewport within the ScrollArea
-				const scrollContainer = scrollContainerRef.current;
-				if (scrollContainer) {
-					const viewport = scrollContainer.querySelector(
-						'[data-slot="scroll-area-viewport"]'
-					) as HTMLElement;
-					if (viewport) {
-						requestAnimationFrame(() => {
-							viewport.scrollTo({
-								top: viewport.scrollHeight,
-								behavior: smooth ? "smooth" : "auto",
+			scrollTimeoutRef.current = setTimeout(
+				() => {
+					// Find the scroll viewport within the ScrollArea
+					const scrollContainer = scrollContainerRef.current;
+					if (scrollContainer) {
+						const viewport = scrollContainer.querySelector(
+							'[data-slot="scroll-area-viewport"]'
+						) as HTMLElement;
+						if (viewport) {
+							requestAnimationFrame(() => {
+								viewport.scrollTo({
+									top: viewport.scrollHeight,
+									behavior: smooth ? "smooth" : "auto",
+								});
 							});
-						});
+						}
 					}
-				}
-			},
-			isLoading ? 20 : 50
-		); // Very fast during streaming, moderate when idle
-	};
+				},
+				isLoading ? 20 : 50
+			); // Very fast during streaming, moderate when idle
+		},
+		[isLoading]
+	);
 
 	const handleExampleSelect = (question: string) => {
 		setInput(question);
@@ -158,12 +161,8 @@ export default function Home() {
 	};
 
 	useEffect(() => {
-		console.log("messages =>", messages);
-	}, [messages]);
-
-	useEffect(() => {
-		scrollToBottom(!isLoading); // No smooth scrolling during streaming for better performance
-	}, [messages, isLoading]);
+		scrollToBottom(!isLoading);
+	}, [messages, isLoading, scrollToBottom]);
 
 	// Cleanup timeout on unmount
 	useEffect(() => {

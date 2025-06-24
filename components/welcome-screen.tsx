@@ -39,7 +39,7 @@ export function WelcomeScreen({ onSelectExample }: WelcomeScreenProps) {
 					Welcome to Thinking AI Assistant
 				</h1>
 				<p className="text-muted-foreground/80 text-lg max-w-lg mx-auto leading-relaxed">
-					I'm here to help with anything you need. Ask me questions,
+					I&apos;m here to help with anything you need. Ask me questions,
 					get help with coding, or just have a conversation.
 				</p>
 			</div>

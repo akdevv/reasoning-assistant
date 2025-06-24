@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Loader2, Brain, ChevronDown, ChevronUp } from "lucide-react";
 import { MODELS_LABELS } from "@/constants";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
